@@ -32,6 +32,9 @@ public class Login extends Activity {
                         // App code
                         Log.i(LOG_TAG, "Success");
                         //Advance to MainActivity
+                        //TODO: Get facebook info, store it in the android application
+                        //If we need to get information from the web service, we will do it in MainActivity
+                        startActivity(new Intent(Login.this,MainActivity.class));
                     }
 
                     @Override

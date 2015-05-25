@@ -28,4 +28,6 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'me.drakeet.materialdialog:library:1.2.2'
     compile 'tk.zielony:carbon:0.8.0'
+    compile 'com.facebook.rebound:rebound:0.3.7'
+
 }

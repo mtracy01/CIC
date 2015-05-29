@@ -11,4 +11,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    //TODO: Create main menu, create fragments for the following:
+    //          My Devices
+    //          Settings
 }

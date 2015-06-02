@@ -10,4 +10,5 @@ public class User {
     public String first_name = "";
     public String last_name = "";
     public List<Device> devices;
+    public Device current_device;
 }

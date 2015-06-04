@@ -7,8 +7,10 @@ import java.util.List;
  * Purpose: User class to store personal data in the app
  */
 public class User {
-    public String first_name = "";
-    public String last_name = "";
-    public List<Device> devices;
-    public Device current_device;
+    public static String userid = "";
+    public static String first_name = "";
+    public static String last_name = "";
+    public static List<Device> devices;
+    public static Device current_device;
+
 }

@@ -5,13 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import modular.cic.MainComponents.Data;
+import modular.cic.Objects.User;
 
 public class Login extends Activity {
 
@@ -32,7 +41,23 @@ public class Login extends Activity {
                         // App code
                         Log.i(LOG_TAG, "Success");
                         //Advance to MainActivity
-                        //TODO: Get facebook info, store it in the android application
+                        //TODO: Make this task Async with loading wheel & set current device info
+                        GraphRequest userInfoRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                                //Once we get the info we need, store it in our user object
+                                String rawResponse = jsonObject.toString();
+                                Log.v(LOG_TAG, "Raw Response from Request:" + rawResponse);
+                                try {
+                                    User.userid = jsonObject.getString("id");
+                                    User.first_name = jsonObject.getString("first_name");
+                                    User.last_name = jsonObject.getString("last_name");
+                                } catch (JSONException e) {
+                                    Log.e(LOG_TAG, e.getMessage());
+                                }
+                            }
+                        });
+                        userInfoRequest.executeAsync();
                         //If we need to get information from the web service, we will do it in MainActivity
                         startActivity(new Intent(Login.this,MainActivity.class));
                     }

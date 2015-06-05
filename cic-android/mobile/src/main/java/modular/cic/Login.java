@@ -42,8 +42,8 @@ public class Login extends Activity {
                         // App code
                         Log.i(LOG_TAG, "Success");
                         //Advance to MainActivity
-                        final ProgressDialog progDialog = ProgressDialog.show(context, "Progress_bar or give anything you want",
-                                "Give message like ....please wait....", true);
+                        final ProgressDialog progDialog = ProgressDialog.show(context, "Setting up...",
+                                "Loading personal information and device info.", true);
                         new Thread() {
                             public void run() {
                                 try {
@@ -65,8 +65,8 @@ public class Login extends Activity {
                                     });
                                     userInfoRequest.executeAndWait();
                                     //If we need to get information from the web service, we will do it in MainActivity
+                                    //TODO: Handle issues with graph requests
                                     startActivity(new Intent(Login.this, MainActivity.class));
-                                    //sleep(2000);
                                 } catch (Exception e) {
                                     //Do something maybe.
                                 }

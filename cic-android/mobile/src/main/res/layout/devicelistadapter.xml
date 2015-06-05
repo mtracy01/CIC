@@ -5,12 +5,15 @@
     <TableRow>
         <ImageView
             android:id="@+id/img"
+            android:contentDescription="Device Picture"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
         <TextView
             android:id="@+id/txt"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:layout_width="wrap_content"
             android:layout_height="50dp" />
+        <RadioButton
+            android:id="@+id/bttn" />
     </TableRow>
 </TableLayout>

@@ -15,6 +15,7 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.nvanbenschoten.motion.ParallaxImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +34,6 @@ public class Login extends Activity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
         callbackManager = CallbackManager.Factory.create();
-
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
@@ -59,7 +59,7 @@ public class Login extends Activity {
                         });
                         userInfoRequest.executeAsync();
                         //If we need to get information from the web service, we will do it in MainActivity
-                        startActivity(new Intent(Login.this,MainActivity.class));
+                        startActivity(new Intent(Login.this, MainActivity.class));
                     }
 
                     @Override
@@ -74,7 +74,9 @@ public class Login extends Activity {
                         Log.i(LOG_TAG, "Error");
                     }
                 });
-
+        //Set up 3d view
+        //ParallaxImageView mLogo = findViewById(R.id.imageView);
+        //mLogo.registerSensorManager();
     }
 
 

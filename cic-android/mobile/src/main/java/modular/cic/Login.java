@@ -17,9 +17,16 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import modular.cic.Objects.User;
 
@@ -35,12 +42,16 @@ public class Login extends Activity {
         setContentView(R.layout.activity_login);
         final Context context = this;
         callbackManager = CallbackManager.Factory.create();
+
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         Log.i(LOG_TAG, "Success");
+
+                        final Bundle bundle = new Bundle();
+
                         //Advance to MainActivity
                         final ProgressDialog progDialog = ProgressDialog.show(context, "Setting up...",
                                 "Loading personal information and device info.", true);
@@ -58,15 +69,36 @@ public class Login extends Activity {
                                                 User.userid = jsonObject.getString("id");
                                                 User.first_name = jsonObject.getString("first_name");
                                                 User.last_name = jsonObject.getString("last_name");
+                                                //TODO: Find parse user.  If one does not exist, make one
+                                                ParseQuery<ParseObject> userQuery = ParseQuery.getQuery("user");
+                                                try {
+                                                    ParseObject result = userQuery.get(User.userid);
+                                                    //If the user is new
+                                                    if(result==null){
+                                                        bundle.putBoolean("new",true);
+                                                    }
+                                                    //User is not new
+                                                    else{
+                                                        bundle.putBoolean("new",false);
+                                                        result.put("updatedAt",new Date());
+                                                    }
+                                                }
+                                                catch(ParseException e){
+                                                  Log.e(LOG_TAG,"Error fetching parse data")  ;
+                                                }
                                             } catch (JSONException e) {
+                                                //TODO: Handle error here
+
                                                 Log.e(LOG_TAG, e.getMessage());
                                             }
                                         }
                                     });
                                     userInfoRequest.executeAndWait();
                                     //If we need to get information from the web service, we will do it in MainActivity
-                                    //TODO: Handle issues with graph requests
-                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                    //TODO: Handle issues with graph requests & do initial queries.
+                                    Intent i = new Intent(Login.this, MainActivity.class);
+                                    i.putExtras(bundle);
+                                    startActivity(i);
                                 } catch (Exception e) {
                                     //Do something maybe.
                                 }
@@ -114,5 +146,6 @@ public class Login extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        //arseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 }

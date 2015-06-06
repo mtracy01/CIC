@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -17,9 +18,7 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -88,7 +87,8 @@ public class Login extends Activity {
                                                 }
                                             } catch (JSONException e) {
                                                 //TODO: Handle error here
-
+                                                Toast.makeText(context,"Error fetching user data!",Toast.LENGTH_SHORT).show();
+                                                //Logout
                                                 Log.e(LOG_TAG, e.getMessage());
                                             }
                                         }

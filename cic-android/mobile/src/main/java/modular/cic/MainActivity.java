@@ -21,5 +21,6 @@ public class MainActivity extends Activity {
 
     //TODO: Create main menu, create fragments for the following:
     //          My Devices
+    //          Find pictures for devices
     //          Settings
 }

@@ -105,7 +105,6 @@ public class Login extends Activity {
                                 progDialog.dismiss();
                             }
                         }.start();
-
                     }
 
                     @Override
@@ -120,9 +119,6 @@ public class Login extends Activity {
                         Log.i(LOG_TAG, "Error");
                     }
                 });
-        //Set up 3d view
-        //ParallaxImageView mLogo = findViewById(R.id.imageView);
-        //mLogo.registerSensorManager();
     }
 
 
@@ -146,6 +142,5 @@ public class Login extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        //arseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -48,7 +48,6 @@ public class Login extends Activity {
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         Log.i(LOG_TAG, "Success");
-
                         final Bundle bundle = new Bundle();
 
                         //Advance to MainActivity
@@ -120,7 +119,6 @@ public class Login extends Activity {
                     }
                 });
     }
-
 
     @Override
     protected void onResume(){

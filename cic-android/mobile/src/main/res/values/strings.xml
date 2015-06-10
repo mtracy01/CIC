@@ -4,5 +4,6 @@
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">1614415282149230</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_initial_loading">InitialLoadingActivity</string>
 
 </resources>

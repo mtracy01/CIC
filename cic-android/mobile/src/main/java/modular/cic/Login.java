@@ -95,7 +95,7 @@ public class Login extends Activity {
                                     userInfoRequest.executeAndWait();
                                     //If we need to get information from the web service, we will do it in MainActivity
                                     //TODO: Handle issues with graph requests & do initial queries.
-                                    Intent i = new Intent(Login.this, MainActivity.class);
+                                    Intent i = new Intent(Login.this,InitialLoadingActivity.class);
                                     i.putExtras(bundle);
                                     startActivity(i);
                                 } catch (Exception e) {
@@ -104,6 +104,9 @@ public class Login extends Activity {
                                 progDialog.dismiss();
                             }
                         }.start();
+                        Intent i = new Intent(Login.this,InitialLoadingActivity.class);
+                        i.putExtras(bundle);
+                        startActivity(i);
                     }
 
                     @Override

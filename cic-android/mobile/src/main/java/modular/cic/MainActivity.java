@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.parse.Parse;
 
+import modular.cic.MainComponents.FacebookHelper;
+
 
 public class  MainActivity extends Activity {
 
@@ -19,6 +21,11 @@ public class  MainActivity extends Activity {
         //TODO: Create progress dialog, create setup menu for first time user
     }
 
+    @Override
+    public void onBackPressed(){
+        FacebookHelper.logout(this);
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
     //TODO: Create main menu, create fragments for the following:
     //          My Devices
     //          Find pictures for devices

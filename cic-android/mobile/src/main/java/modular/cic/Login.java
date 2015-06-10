@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+import modular.cic.HelperComponents.App;
 import modular.cic.Objects.User;
 
 public class Login extends Activity {
@@ -39,6 +42,17 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        //Temporary button for killing the app
+        Button killButton = (Button) findViewById(R.id.button);
+        killButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.kill();
+            }
+        });
+
+
         final Context context = this;
         callbackManager = CallbackManager.Factory.create();
 
@@ -95,9 +109,9 @@ public class Login extends Activity {
                                     userInfoRequest.executeAndWait();
                                     //If we need to get information from the web service, we will do it in MainActivity
                                     //TODO: Handle issues with graph requests & do initial queries.
-                                    Intent i = new Intent(Login.this,InitialLoadingActivity.class);
+                                    /*Intent i = new Intent(Login.this,InitialLoadingActivity.class);
                                     i.putExtras(bundle);
-                                    startActivity(i);
+                                    startActivity(i);*/
                                 } catch (Exception e) {
                                     //Do something maybe.
                                 }

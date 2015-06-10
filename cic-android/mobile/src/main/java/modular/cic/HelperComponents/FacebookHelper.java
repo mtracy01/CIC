@@ -1,4 +1,4 @@
-package modular.cic.MainComponents;
+package modular.cic.HelperComponents;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ public class FacebookHelper {
     public static void logout(Context context){
         LoginManager manager = LoginManager.getInstance();
         manager.logOut();
+
         Intent i = new Intent (context, Login.class);
         context.startActivity(i);
     }

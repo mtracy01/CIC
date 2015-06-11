@@ -47,7 +47,7 @@ public class  MainActivity extends Activity{
                 builder.show();
             }
         });
-        //getMenuInflater().inflate()
+
         //TODO: Create progress dialog, create setup menu for first time user
     }
 

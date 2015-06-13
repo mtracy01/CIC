@@ -2,14 +2,11 @@ package modular.cic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
-import com.parse.Parse;
 
 import modular.cic.HelperComponents.FacebookHelper;
 

@@ -80,7 +80,7 @@ public class InitialLoadingActivity extends Activity{
         };
         welcomeThread.start();
     }
-    private void updateText(final TextView textView, final String text){
+    private void updateText(final TextView textView, final String text) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -88,7 +88,4 @@ public class InitialLoadingActivity extends Activity{
             }
         });
     }
-
-    //Parse query functions are here
-
 }

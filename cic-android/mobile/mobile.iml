@@ -124,8 +124,8 @@
     <orderEntry type="library" exported="" name="mediarouter-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="gridlayout-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="play-services-drive-7.5.0" level="project" />
-    <orderEntry type="library" exported="" name="androidsvg-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="androidsvg-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="carbon-0.8.0" level="project" />
     <orderEntry type="library" exported="" name="library-circular-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-7.5.0" level="project" />

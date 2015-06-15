@@ -41,7 +41,7 @@ public class InitialLoadingActivity extends Activity{
                     Log.i(LOG_TAG, "Set text second time");
                     //TODO: Query the hardware id. If hardware id is new, if it is, then we should prompt user if they want to add it (or not?)
                     Device currDevice = DeviceSnooper.gatherDeviceInfo(context);
-                    if(currDevice==null){
+                   /* if(currDevice==null){
                         //Prompt user for if they would like to add this device to their account
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Add Device?");
@@ -59,7 +59,8 @@ public class InitialLoadingActivity extends Activity{
                             }
                         });
                         builder.show();
-                    }
+                    }*/
+                    //TODO: Implement DeviceSnooper and Parse before uncommenting above code
                     Thread.sleep(5000);
                     Log.i(LOG_TAG,"Second sleep finished");
                     updateText(textView, "Finishing up...");

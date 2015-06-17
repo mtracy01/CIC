@@ -140,7 +140,6 @@ public class Login extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-
         // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
     }
@@ -148,7 +147,6 @@ public class Login extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-
         // Logs 'app deactivate' App Event.
         AppEventsLogger.deactivateApp(this);
     }

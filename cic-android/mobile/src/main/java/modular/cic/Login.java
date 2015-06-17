@@ -33,7 +33,6 @@ import modular.cic.HelperComponents.App;
 import modular.cic.Objects.User;
 
 public class Login extends Activity {
-
     private CallbackManager callbackManager;
     private String LOG_TAG = "Login";
 

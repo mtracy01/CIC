@@ -41,6 +41,10 @@
             android:name=".InitialLoadingActivity"
             android:label="@string/title_activity_initial_loading" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

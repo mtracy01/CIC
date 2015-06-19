@@ -23,6 +23,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile fileTree(include: 'Parse-*.jar', dir: 'libs')
     wearApp project(':wear')
+    compile files('libs/Parse-1.9.2/Parse-1.9.2.jar')
+    compile files('libs/Parse-1.9.2/ParseFacebookUtilsV4-1.9.2.jar')
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.google.android.gms:play-services:7.5.0'
@@ -33,11 +35,8 @@ dependencies {
     compile 'com.facebook.rebound:rebound:0.3.7'
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.nvanbenschoten.motion:library:1.0.2'
-    compile files('libs/Parse-1.9.2/Parse-1.9.2.jar')
-    compile files('libs/Parse-1.9.2/ParseFacebookUtilsV4-1.9.2.jar')
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
-    compile 'com.github.castorflex.smoothprogressbar:library:1.0.1-SNAPSHOT@aar'
-    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1-SNAPSHOT@aar'
     compile 'com.github.manuelpeinado.glassactionbar:glassactionbar:0.3.0'
+    compile 'com.android.support:support-v4:22.1.1'
 }

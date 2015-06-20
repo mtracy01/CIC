@@ -85,21 +85,20 @@ public class Login extends Activity {
                                                 try {
                                                     ParseObject result = userQuery.get(User.userid);
                                                     //If the user is new
-                                                    if(result==null){
-                                                        bundle.putBoolean("new",true);
+                                                    if (result == null) {
+                                                        bundle.putBoolean("new", true);
                                                     }
                                                     //User is not new
-                                                    else{
-                                                        bundle.putBoolean("new",false);
-                                                        result.put("updatedAt",new Date());
+                                                    else {
+                                                        bundle.putBoolean("new", false);
+                                                        result.put("updatedAt", new Date());
                                                     }
-                                                }
-                                                catch(ParseException e){
-                                                  Log.e(LOG_TAG,"Error fetching parse data")  ;
+                                                } catch (ParseException e) {
+                                                    Log.e(LOG_TAG, "Error fetching parse data");
                                                 }
                                             } catch (JSONException e) {
                                                 //TODO: Handle error here
-                                                Toast.makeText(context,"Error fetching user data!",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Error fetching user data!", Toast.LENGTH_SHORT).show();
                                                 //Logout
                                                 Log.e(LOG_TAG, e.getMessage());
                                             }
@@ -117,7 +116,7 @@ public class Login extends Activity {
                                 progDialog.dismiss();
                             }
                         }.start();
-                        Intent i = new Intent(Login.this,InitialLoadingActivity.class);
+                        Intent i = new Intent(Login.this, InitialLoadingActivity.class);
                         i.putExtras(bundle);
                         startActivity(i);
                     }
@@ -137,7 +136,7 @@ public class Login extends Activity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);

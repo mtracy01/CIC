@@ -18,22 +18,22 @@ import modular.cic.R;
  * Created by matthew on 5/27/15.
  * This will be the list adapter used for displaying devices in the main activity.
  */
-public class DeviceListAdapter extends ArrayAdapter<String>{
+public class DeviceListAdapter extends ArrayAdapter<String> {
     private Activity context;
     private Bitmap[] image;      //Image for device
     private String[] name;      //Name of device
     private int[] status;       //Status of device
 
-    public DeviceListAdapter(Activity context, String[] names, Bitmap[] images, int[] statuss){
-        super(context,R.layout.devicelistadapter,names);
-        this.context=context;
+    public DeviceListAdapter(Activity context, String[] names, Bitmap[] images, int[] statuss) {
+        super(context, R.layout.devicelistadapter, names);
+        this.context = context;
         this.image = images;
         this.name = names;
         this.status = statuss;
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent){
+    public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();//TODO: Finish this
         View rowView = inflater.inflate(R.layout.devicelistadapter, null, true);
         TextView textView = (TextView) rowView.findViewById(R.id.txt);
@@ -45,7 +45,7 @@ public class DeviceListAdapter extends ArrayAdapter<String>{
         imageView.setImageBitmap(image[position]);
         bttn.setChecked(true);
 
-        switch(status[position]) {
+        switch (status[position]) {
             case 0:
                 //Device offline / unavailable
                 bttn.setTextColor(Color.RED);

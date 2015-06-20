@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import modular.cic.HelperComponents.FacebookHelper;
 
 
-public class  MainActivity extends Activity{
+public class MainActivity extends Activity {
 
     private final Context context = this;
 
@@ -49,7 +49,7 @@ public class  MainActivity extends Activity{
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         //Logout the user
         FacebookHelper.logout(this);
     }

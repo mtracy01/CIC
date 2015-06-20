@@ -14,7 +14,7 @@ import modular.cic.MainComponents.DeviceSnooper;
 import modular.cic.Objects.Device;
 
 
-public class InitialLoadingActivity extends Activity{
+public class InitialLoadingActivity extends Activity {
 
     private String LOG_TAG = "InitialLoadingActivity";
     private Context context = this;
@@ -23,7 +23,7 @@ public class InitialLoadingActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_loading);
-        final TextView textView = (TextView)findViewById(R.id.textView);
+        final TextView textView = (TextView) findViewById(R.id.textView);
 
         Thread welcomeThread = new Thread() {
 
@@ -62,13 +62,13 @@ public class InitialLoadingActivity extends Activity{
                     }*/
                     //TODO: Implement DeviceSnooper and Parse before uncommenting above code
                     Thread.sleep(5000);
-                    Log.i(LOG_TAG,"Second sleep finished");
+                    Log.i(LOG_TAG, "Second sleep finished");
                     updateText(textView, "Finishing up...");
                     //TODO: Set this device as having highest priority currently.  Tell the server to push other devices to turn notifications off
                     Thread.sleep(9000);
 
                 } catch (Exception e) {
-                    Log.e(LOG_TAG,"Error here!!");
+                    Log.e(LOG_TAG, "Error here!!");
                     e.printStackTrace();
                 } finally {
                     //Bundle important information to send over here
@@ -81,6 +81,7 @@ public class InitialLoadingActivity extends Activity{
         };
         welcomeThread.start();
     }
+
     private void updateText(final TextView textView, final String text) {
         runOnUiThread(new Runnable() {
             @Override

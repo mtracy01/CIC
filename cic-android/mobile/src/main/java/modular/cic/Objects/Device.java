@@ -11,5 +11,5 @@ public class Device {
     public Integer type = -1;    //-1 = unassigned
     public int notification_priority = -1;
     public boolean notification_status = true;
-    public LatLng location = new LatLng(0,0);
+    public LatLng location = new LatLng(0, 0);
 }

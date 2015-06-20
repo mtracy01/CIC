@@ -11,10 +11,10 @@ import modular.cic.Objects.Device;
  */
 public class DeviceSnooper {
     //Return non-null device if we should prompt user to add this device to their devices
-    public static Device gatherDeviceInfo(Context context){
+    public static Device gatherDeviceInfo(Context context) {
         //Get device id
         String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        
+
         return null;
     }
 

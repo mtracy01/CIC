@@ -40,7 +40,6 @@ public class SettingsActivity extends PreferenceActivity {
      */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -168,7 +167,6 @@ public class SettingsActivity extends PreferenceActivity {
                         preference.setSummary(name);
                     }
                 }
-
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.

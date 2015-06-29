@@ -88,7 +88,6 @@ public class SettingsActivity extends PreferenceActivity {
     public boolean onIsMultiPane() {
         return isXLargeTablet(this) && !isSimplePreferences(this);
     }
-
     /**
      * Helper method to determine if the device has an extra-large screen. For
      * example, 10" tablets are extra-large.

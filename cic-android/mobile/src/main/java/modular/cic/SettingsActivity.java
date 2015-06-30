@@ -108,7 +108,6 @@ public class SettingsActivity extends PreferenceActivity {
                 || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
                 || !isXLargeTablet(context);
     }
-
     /**
      * {@inheritDoc}
      */

@@ -118,7 +118,6 @@ public class SettingsActivity extends PreferenceActivity {
             loadHeadersFromResource(R.xml.pref_headers, target);
         }
     }
-
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.

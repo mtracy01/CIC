@@ -147,7 +147,6 @@ public class SettingsActivity extends PreferenceActivity {
 
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(stringValue));
-
                     if (ringtone == null) {
                         // Clear the summary if there was a lookup error.
                         preference.setSummary(null);

@@ -142,7 +142,7 @@ public class SettingsActivity extends PreferenceActivity {
                 // For ringtone preferences, look up the correct display value
                 // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
-                    
+
                     preference.setSummary(R.string.pref_ringtone_silent);
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(stringValue));
@@ -164,7 +164,6 @@ public class SettingsActivity extends PreferenceActivity {
             return true;
         }
     };
-
     /**
      * Binds a preference's summary to its value. More specifically, when the
      * preference's value is changed, its summary (line of text below the

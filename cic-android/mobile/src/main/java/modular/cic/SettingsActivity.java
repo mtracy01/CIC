@@ -203,7 +203,6 @@ public class SettingsActivity extends PreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("example_list"));
         }
     }
-
     /**
      * This fragment shows notification preferences only. It is used when the
      * activity is showing a two-pane settings UI.

@@ -12,11 +12,11 @@ import modular.cic.Login;
  * Purpose: Simple wrapper for quick access to facebook requests used in the app
  */
 public class FacebookHelper {
-    public static void logout(Context context){
+    public static void logout(Context context) {
         LoginManager manager = LoginManager.getInstance();
         manager.logOut();
 
-        Intent i = new Intent (context, Login.class);
+        Intent i = new Intent(context, Login.class);
         context.startActivity(i);
     }
 }

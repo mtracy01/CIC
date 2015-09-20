@@ -13,9 +13,9 @@ import modular.cic.Login;
  */
 public class FacebookHelper {
     public static void logout(Context context) {
-        LoginManager manager = LoginManager.getInstance();
+      /*  LoginManager manager = LoginManager.getInstance();
         manager.logOut();
-
+        */
         Intent i = new Intent(context, Login.class);
         context.startActivity(i);
     }

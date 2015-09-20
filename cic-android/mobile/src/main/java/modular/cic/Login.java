@@ -20,6 +20,7 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -35,10 +36,17 @@ import modular.cic.Objects.User;
 public class Login extends Activity {
     private CallbackManager callbackManager;
     private String LOG_TAG = "Login";
-
+    private boolean first = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!first){
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this, "dfxawm7UMzEWbPPRObtn73GRLUHwdQTZybnNnrZw", "fdCWMSD5OXw1z3KCFuW73kLxDr8iRvWmJ0KWiKTs");
+            first=!first;
+        }
+
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
 
@@ -55,7 +63,7 @@ public class Login extends Activity {
         final Context context = this;
         callbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().registerCallback(callbackManager,
+        /*LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -108,9 +116,7 @@ public class Login extends Activity {
                                     userInfoRequest.executeAndWait();
                                     //If we need to get information from the web service, we will do it in MainActivity
                                     //TODO: Handle issues with graph requests & do initial queries.
-                                    /*Intent i = new Intent(Login.this,InitialLoadingActivity.class);
-                                    i.putExtras(bundle);
-                                    startActivity(i);*/
+
                                 } catch (Exception e) {
                                     //Do something maybe.
                                 }
@@ -133,7 +139,10 @@ public class Login extends Activity {
                         // App code
                         Log.i(LOG_TAG, "Error");
                     }
-                });
+                });*/
+
+        //TODO: Add parse login stuff here
+
     }
 
     @Override

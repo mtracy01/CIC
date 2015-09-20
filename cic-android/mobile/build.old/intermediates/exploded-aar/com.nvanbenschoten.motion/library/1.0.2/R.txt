@@ -1,0 +1,9 @@
+int attr forwardTiltOffset 0x7f010002
+int attr intensity 0x7f010000
+int attr scaledIntensity 0x7f010003
+int attr tiltSensitivity 0x7f010001
+int[] styleable ParallaxImageView { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003 }
+int styleable ParallaxImageView_forwardTiltOffset 2
+int styleable ParallaxImageView_intensity 0
+int styleable ParallaxImageView_scaledIntensity 3
+int styleable ParallaxImageView_tiltSensitivity 1

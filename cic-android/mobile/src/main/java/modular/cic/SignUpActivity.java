@@ -271,19 +271,14 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
             newuser.setEmail(mEmail);
             newuser.setUsername(mEmail);
             newuser.setPassword(mPassword);
-            newuser.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e == null){
-                        ret[0]=true;
-                    }
-                    else{
-                        Log.e("SignUp", e.getMessage());
-                        ret[0]=false;
-                    }
-                }
-            });
-            // TODO: register the new account here.
+            try {
+                newuser.signUp();
+                ret[0]=true;
+            } catch (ParseException e) {
+                Log.e("SignUp",e.getMessage());
+                e.printStackTrace();
+                ret[0]=false;
+            }
             return ret[0];
         }
 

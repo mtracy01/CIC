@@ -35,19 +35,12 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import modular.cic.HelperComponents.App;
+
 /**
  * A login screen that offers login via email/password.
  */
 public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> {
-
-    public static boolean first = false;
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -64,11 +57,10 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
         // Set up the login form.
-        if(!first) {
-            first = true;
+        if(!App.first) {
+            App.first = true;
             Parse.enableLocalDatastore(this);
-            Parse.initialize(this, "dfxawm7UMzEWbPPRObtn73GRLUHwdQTZybnNnrZw", "fdCWMSD5OXw1z3KCFuW73kLxDr8iRvWmJ0KWiKTs");
-
+            Parse.initialize(this, "mVVIOvXdu2U7GgpRfVsGnVUJF6manarnyTbYaR9R", "xbkQl7TMB7Oe2Y5avaTZH10jj5nY5FTxLZPwAgig");
         }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -164,12 +156,10 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -281,7 +271,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            ParseUser.logInInBackground(mEmail, mPassword, new LogInCallback() {
+            /*ParseUser.logIn(mEmail, mPassword, new LogInCallback() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
                     if (e == null) {
@@ -292,7 +282,14 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
                         ret[0] = false;
                     }
                 }
-            });
+            });*/
+            try {
+                ParseUser.logIn(mEmail,mPassword);
+                ret[0]=true;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                ret[0]=false;
+            }
             return ret[0];
         }
 

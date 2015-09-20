@@ -44,7 +44,7 @@ public class Login extends Activity {
         if (!first){
             Parse.enableLocalDatastore(this);
             Parse.initialize(this, "dfxawm7UMzEWbPPRObtn73GRLUHwdQTZybnNnrZw", "fdCWMSD5OXw1z3KCFuW73kLxDr8iRvWmJ0KWiKTs");
-            first=!first;
+            first=true;
         }
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());

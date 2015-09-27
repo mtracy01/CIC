@@ -6,8 +6,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import modular.cic.HelperComponents.FacebookHelper;
 import modular.cic.MainComponents.DeviceSnooper;
@@ -40,8 +56,15 @@ public class InitialLoadingActivity extends Activity {
                     updateText(textView, "Gathering Profile information...");
                     Log.i(LOG_TAG, "Set text second time");
                     //TODO: Query the hardware id. If hardware id is new, if it is, then we should prompt user if they want to add it (or not?)
-                    Device currDevice = DeviceSnooper.gatherDeviceInfo(context);
-                   /* if(currDevice==null){
+                    //Device currDevice = DeviceSnooper.gatherDeviceInfo(context);
+                    String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+                    //TODO: Check parse for id
+                    ParseQuery query = new ParseQuery("Device");
+                    query.include("deviceOwner");
+                    query.whereContains("deviceOwner", ParseUser.getCurrentUser().getObjectId());
+                    query.whereContains("deviceId", hid);
+                    List<ParseObject> devices = query.find();
+                    if(devices.size()==0){
                         //Prompt user for if they would like to add this device to their account
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Add Device?");
@@ -50,6 +73,65 @@ public class InitialLoadingActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO: Store this device into parse
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                                //LayoutInflater inflater = LayoutInflater.from(context, R.layout.add_device);
+                                builder.setView(R.layout.add_device);
+
+                                final EditText deviceNameText = (EditText) ((AlertDialog) dialog).findViewById(R.id.devNameText);
+                                final Spinner  deviceType = (Spinner) ((AlertDialog) dialog).findViewById(R.id.spinner1);
+                                final Spinner  pDevice = (Spinner) ((AlertDialog) dialog).findViewById(R.id.spinner2);
+
+                                ArrayList<String> deviceTypes = new ArrayList<>();
+                                deviceTypes.add("Phone");
+                                deviceTypes.add("Tablet");
+                                deviceTypes.add("Android PC");
+                                ArrayList<String> yNo = new ArrayList<>();
+                                yNo.add("No");
+                                yNo.add("Yes");
+                                deviceType.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, deviceTypes));
+                                pDevice.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, yNo));
+                                builder.setPositiveButton("Add Device", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ParseQuery query = new ParseQuery("User");
+                                        query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
+                                        query.include("deviceCount");
+                                        Integer deviceCount=0;
+                                        try {
+                                            List l = query.find();
+                                            deviceCount = (Integer)l.get(0);
+                                        }
+                                        catch(ParseException e){
+                                            //TODO: Print error
+                                        }
+                                        //TODO: Add device to Parse under this owner
+                                        ParseObject device = new ParseObject("Device");
+                                        device.put("userId", ParseUser.getCurrentUser().getObjectId());
+                                        device.put("deviceType",deviceType.getSelectedItem());
+                                        device.put("deviceName",deviceNameText.getText());
+                                        if(deviceType.getSelectedItemPosition()==1)
+                                            device.put("notificationPriority",0);
+                                        else
+                                            device.put("notificationPriority",deviceCount);
+                                        deviceCount++;
+                                        ParseUser.getCurrentUser().put("deviceCount",deviceCount);
+                                        try {
+                                            ParseUser.getCurrentUser().save();
+                                            device.save();
+                                        }
+                                        catch(ParseException e){
+                                            //TODO: Add exception information here
+                                        }
+                                    }
+                                });
+                                builder.setNegativeButton("Don't Add", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //TODO: Do nothing
+                                    }
+                                });
+                                builder.show();
                             }
                         });
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -59,7 +141,7 @@ public class InitialLoadingActivity extends Activity {
                             }
                         });
                         builder.show();
-                    }*/
+                    }
                     //TODO: Implement DeviceSnooper and Parse before uncommenting above code
                     Thread.sleep(5000);
                     Log.i(LOG_TAG, "Second sleep finished");

@@ -14,6 +14,8 @@ public class DeviceSnooper {
     public static Device gatherDeviceInfo(Context context) {
         //Get device id
         String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Device d = new Device();
+        d.id = hid;
 
         return null;
     }

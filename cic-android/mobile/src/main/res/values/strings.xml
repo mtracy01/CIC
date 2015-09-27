@@ -6,5 +6,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_initial_loading">InitialLoadingActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="device_title">Device Title</string>
+    <string name="device_type">Device Type</string>
+    <string name="primary_device">Primary Device?</string>
 
 </resources>

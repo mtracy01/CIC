@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
  * Purpose: Details of a person's device
  */
 public class Device {
+    public String id = null;
     public String name = "";
     public Integer type = -1;    //-1 = unassigned
     public int notification_priority = -1;

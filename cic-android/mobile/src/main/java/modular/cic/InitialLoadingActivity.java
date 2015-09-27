@@ -8,15 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -25,9 +22,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-import modular.cic.HelperComponents.FacebookHelper;
-import modular.cic.MainComponents.DeviceSnooper;
-import modular.cic.Objects.Device;
+import modular.cic.HelperComponents.ParseHelper;
 
 
 public class InitialLoadingActivity extends Activity {
@@ -57,13 +52,14 @@ public class InitialLoadingActivity extends Activity {
                     Log.i(LOG_TAG, "Set text second time");
                     //TODO: Query the hardware id. If hardware id is new, if it is, then we should prompt user if they want to add it (or not?)
                     //Device currDevice = DeviceSnooper.gatherDeviceInfo(context);
-                    String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+                    final String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                     //TODO: Check parse for id
                     ParseQuery query = new ParseQuery("Device");
                     query.include("deviceOwner");
-                    query.whereContains("deviceOwner", ParseUser.getCurrentUser().getObjectId());
+                    String oid = ParseUser.getCurrentUser().getObjectId();
+                    query.whereContains("ownerId", oid);
                     query.whereContains("deviceId", hid);
-                    List<ParseObject> devices = query.find();
+                    List devices = query.find();
                     Log.i(LOG_TAG,"Devices size: " + devices.size());
                     if(devices.size()==0){
                         //Prompt user for if they would like to add this device to their account
@@ -112,9 +108,13 @@ public class InitialLoadingActivity extends Activity {
                                         }
                                         //TODO: Add device to Parse under this owner
                                         ParseObject device = new ParseObject("Device");
-                                        device.put("userId", ParseUser.getCurrentUser().getObjectId());
+                                        String ownerId = ParseUser.getCurrentUser().getObjectId();
+                                        String deviceId = hid;
+                                        Log.i(LOG_TAG,"Owner Id: " + ownerId + "DeviceId: " + deviceId);
+                                        device.put("ownerId", ParseUser.getCurrentUser().getObjectId());
                                         device.put("deviceType", deviceType.getSelectedItem());
                                         device.put("deviceName", deviceNameText.getText().toString());
+                                        device.put("deviceId", hid);
                                         if (deviceType.getSelectedItemPosition() == 1)
                                             device.put("notificationPriority", 0);
                                         else
@@ -149,7 +149,7 @@ public class InitialLoadingActivity extends Activity {
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                FacebookHelper.logout(context);
+                                ParseHelper.logout(context);
                             }
                         });
                         runOnUiThread(new Runnable() {

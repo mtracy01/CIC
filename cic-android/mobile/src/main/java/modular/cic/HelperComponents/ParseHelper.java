@@ -4,19 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.facebook.login.LoginManager;
+import com.parse.ParseUser;
 
 import modular.cic.Login;
+import modular.cic.SignInActivity;
 
 /**
  * Created by matthew on 6/10/15.
  * Purpose: Simple wrapper for quick access to facebook requests used in the app
  */
-public class FacebookHelper {
+public class ParseHelper {
     public static void logout(Context context) {
       /*  LoginManager manager = LoginManager.getInstance();
         manager.logOut();
         */
-        Intent i = new Intent(context, Login.class);
+        ParseUser.logOut();
+        Intent i = new Intent(context, SignInActivity.class);
         context.startActivity(i);
     }
 }

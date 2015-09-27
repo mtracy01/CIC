@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.parse.Parse;
-
-import modular.cic.HelperComponents.FacebookHelper;
+import modular.cic.HelperComponents.ParseHelper;
 
 
 public class  MainActivity extends Activity{
@@ -32,7 +30,7 @@ public class  MainActivity extends Activity{
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FacebookHelper.logout(context);
+                        ParseHelper.logout(context);
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -52,7 +50,7 @@ public class  MainActivity extends Activity{
     @Override
     public void onBackPressed(){
         //Logout the user
-        FacebookHelper.logout(this);
+        ParseHelper.logout(this);
     }
     //TODO: Create main menu, create fragments for the following:
     //          My Devices

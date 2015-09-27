@@ -1,26 +1,24 @@
-package modular.cic;
+package modular.cic.Login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+
 import android.os.Build;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,23 +26,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SignUpActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
+import modular.cic.HelperComponents.App;
+import modular.cic.MainActivity;
+import modular.cic.R;
 
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+/**
+ * A login screen that offers login via email/password.
+ */
+public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -59,8 +55,16 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_login2);
         // Set up the login form.
+        if(!App.first) {
+            App.first = true;
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this, "mVVIOvXdu2U7GgpRfVsGnVUJF6manarnyTbYaR9R", "xbkQl7TMB7Oe2Y5avaTZH10jj5nY5FTxLZPwAgig");
+        }
+        if(ParseUser.getCurrentUser()!=null){
+            startActivity(new Intent(SignInActivity.this, MainActivity.class));
+        }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -69,23 +73,29 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptRegister();
+                    attemptLogin();
                     return true;
                 }
                 return false;
             }
         });
 
-        mPasswordView = (EditText) findViewById(R.id.reppassword);
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_register_button);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptRegister();
+                attemptLogin();
             }
         });
+        Button mEmailRegisterButton = (Button) findViewById(R.id.email_register_button);
+        mEmailRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
+                startActivity(intent);
 
+            }
+        });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -100,7 +110,7 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptRegister() {
+    public void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
@@ -142,18 +152,17 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -241,7 +250,7 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(SignUpActivity.this,
+                new ArrayAdapter<String>(SignInActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -251,11 +260,9 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-
     public static final boolean[] ret = new boolean[1];
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
         private final String mEmail;
         private final String mPassword;
 
@@ -267,15 +274,22 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            ParseUser newuser = new ParseUser();
-            newuser.setEmail(mEmail);
-            newuser.setUsername(mEmail);
-            newuser.setPassword(mPassword);
+            /*ParseUser.logIn(mEmail, mPassword, new LogInCallback() {
+                @Override
+                public void done(ParseUser parseUser, ParseException e) {
+                    if (e == null) {
+                        ret[0] = true;
+                       // HelperClass.SetFacebookUrl("facebook.com/food");
+                       // HelperClass.SetLinkedInUrl("linkedIn/food");
+                    } else {
+                        ret[0] = false;
+                    }
+                }
+            });*/
             try {
-                newuser.signUp();
+                ParseUser.logIn(mEmail,mPassword);
                 ret[0]=true;
             } catch (ParseException e) {
-                Log.e("SignUp",e.getMessage());
                 e.printStackTrace();
                 ret[0]=false;
             }
@@ -289,10 +303,10 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
 
             if (success) {
                 finish();
-                Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                Intent intent = new Intent(SignInActivity.this,InitialLoadingActivity.class);
                 startActivity(intent);
             } else {
-                mPasswordView.setError("Cannot create new account");
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }
@@ -304,3 +318,4 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
         }
     }
 }
+

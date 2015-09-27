@@ -1,4 +1,4 @@
-package modular.cic;
+package modular.cic.Login;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modular.cic.HelperComponents.ParseHelper;
+import modular.cic.MainActivity;
+import modular.cic.R;
 
 
 public class InitialLoadingActivity extends Activity {

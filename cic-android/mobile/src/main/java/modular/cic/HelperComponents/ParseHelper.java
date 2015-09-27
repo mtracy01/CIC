@@ -3,11 +3,9 @@ package modular.cic.HelperComponents;
 import android.content.Context;
 import android.content.Intent;
 
-import com.facebook.login.LoginManager;
 import com.parse.ParseUser;
 
-import modular.cic.Login;
-import modular.cic.SignInActivity;
+import modular.cic.Login.SignInActivity;
 
 /**
  * Created by matthew on 6/10/15.

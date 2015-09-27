@@ -22,12 +22,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity
-            android:name=".Login"
-            android:label="@string/app_name" >
-
-        </activity>
-
         <!-- Package Activities -->
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -39,11 +33,11 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".InitialLoadingActivity"
+            android:name=".Login.InitialLoadingActivity"
             android:label="@string/title_activity_initial_loading" >
         </activity>
         <activity
-            android:name=".SignInActivity"
+            android:name=".Login.SignInActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
@@ -53,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Login.SignUpActivity"
             android:label="@string/title_activity_sign_up" >
         </activity>
     </application>

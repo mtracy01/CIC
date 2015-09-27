@@ -59,7 +59,7 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="modular.cic.InitialLoadingActivity"
+            android:name=".Login.InitialLoadingActivity"
             android:label="@string/title_activity_initial_loading" >
         </activity>
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->

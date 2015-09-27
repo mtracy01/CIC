@@ -44,6 +44,8 @@ public class  MainActivity extends Activity{
             }
         });
 
+
+
         //TODO: Create progress dialog, create setup menu for first time user
     }
 

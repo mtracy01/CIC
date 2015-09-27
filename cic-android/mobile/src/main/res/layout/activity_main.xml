@@ -10,7 +10,8 @@
         android:layout_height="@dimen/abc_action_bar_default_height_material"
         android:layout_alignParentTop="true"
         android:background="@color/carbon_background_dark"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/frameLayout">
 
         <!-- Elements of action bar go below -->
         <TextView
@@ -27,4 +28,11 @@
             android:src="@drawable/ic_power_settings_new_black_48dp"
             android:layout_gravity="end|center_vertical" />
     </FrameLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableListView"
+        android:layout_below="@+id/frameLayout"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

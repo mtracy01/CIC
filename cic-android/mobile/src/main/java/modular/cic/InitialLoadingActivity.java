@@ -50,7 +50,7 @@ public class InitialLoadingActivity extends Activity {
                     //Loading stuff happens here
 
                     updateText(textView, "Loading...");
-                    Thread.sleep(2000);
+                    //Thread.sleep(2000);
                     Log.i(LOG_TAG, "First sleep done");
                     //TODO: Query for the userid, it does not exist, we need to go to the new user page, otheriwise, get other info
                     updateText(textView, "Gathering Profile information...");
@@ -64,23 +64,24 @@ public class InitialLoadingActivity extends Activity {
                     query.whereContains("deviceOwner", ParseUser.getCurrentUser().getObjectId());
                     query.whereContains("deviceId", hid);
                     List<ParseObject> devices = query.find();
+                    Log.i(LOG_TAG,"Devices size: " + devices.size());
                     if(devices.size()==0){
                         //Prompt user for if they would like to add this device to their account
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Add Device?");
                         builder.setMessage("Would you like to add this device to your account?");
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO: Store this device into parse
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                                //LayoutInflater inflater = LayoutInflater.from(context, R.layout.add_device);
-                                builder.setView(R.layout.add_device);
+                                View v = getLayoutInflater().inflate(R.layout.add_device,null);  //(context, R.layout.add_device);
+                                builder.setView(v);
 
-                                final EditText deviceNameText = (EditText) ((AlertDialog) dialog).findViewById(R.id.devNameText);
-                                final Spinner  deviceType = (Spinner) ((AlertDialog) dialog).findViewById(R.id.spinner1);
-                                final Spinner  pDevice = (Spinner) ((AlertDialog) dialog).findViewById(R.id.spinner2);
+                                final EditText deviceNameText = (EditText) v.findViewById(R.id.devNameText);
+                                final Spinner deviceType = (Spinner) v.findViewById(R.id.spinner1);
+                                final Spinner pDevice = (Spinner) v.findViewById(R.id.spinner2);
 
                                 ArrayList<String> deviceTypes = new ArrayList<>();
                                 deviceTypes.add("Phone");
@@ -89,38 +90,44 @@ public class InitialLoadingActivity extends Activity {
                                 ArrayList<String> yNo = new ArrayList<>();
                                 yNo.add("No");
                                 yNo.add("Yes");
-                                deviceType.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, deviceTypes));
-                                pDevice.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, yNo));
+                                ArrayAdapter adapter1 = new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, deviceTypes);
+                                ArrayAdapter adapter2 = new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, yNo);
+                                deviceType.setAdapter(adapter1);
+                                pDevice.setAdapter(adapter2);
                                 builder.setPositiveButton("Add Device", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         ParseQuery query = new ParseQuery("User");
                                         query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
                                         query.include("deviceCount");
-                                        Integer deviceCount=0;
+                                        Integer deviceCount = 0;
                                         try {
                                             List l = query.find();
-                                            deviceCount = (Integer)l.get(0);
-                                        }
-                                        catch(ParseException e){
+                                            Log.i(LOG_TAG, "List size: " + l.size());
+                                            if(l.size()>0)
+                                                deviceCount = (Integer) l.get(0);
+
+                                        } catch (ParseException e) {
                                             //TODO: Print error
                                         }
                                         //TODO: Add device to Parse under this owner
                                         ParseObject device = new ParseObject("Device");
                                         device.put("userId", ParseUser.getCurrentUser().getObjectId());
-                                        device.put("deviceType",deviceType.getSelectedItem());
-                                        device.put("deviceName",deviceNameText.getText());
-                                        if(deviceType.getSelectedItemPosition()==1)
-                                            device.put("notificationPriority",0);
+                                        device.put("deviceType", deviceType.getSelectedItem());
+                                        device.put("deviceName", deviceNameText.getText().toString());
+                                        if (deviceType.getSelectedItemPosition() == 1)
+                                            device.put("notificationPriority", 0);
                                         else
-                                            device.put("notificationPriority",deviceCount);
+                                            device.put("notificationPriority", deviceCount);
                                         deviceCount++;
-                                        ParseUser.getCurrentUser().put("deviceCount",deviceCount);
+                                        ParseUser.getCurrentUser().put("deviceCount", deviceCount);
                                         try {
                                             ParseUser.getCurrentUser().save();
                                             device.save();
-                                        }
-                                        catch(ParseException e){
+                                            Intent i = new Intent(InitialLoadingActivity.this,
+                                                    MainActivity.class);
+                                            startActivity(i);
+                                        } catch (ParseException e) {
                                             //TODO: Add exception information here
                                         }
                                     }
@@ -131,7 +138,12 @@ public class InitialLoadingActivity extends Activity {
                                         //TODO: Do nothing
                                     }
                                 });
-                                builder.show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        builder.show();
+                                    }
+                                });
                             }
                         });
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -140,7 +152,13 @@ public class InitialLoadingActivity extends Activity {
                                 FacebookHelper.logout(context);
                             }
                         });
-                        builder.show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                builder.show();
+                            }
+                        });
+
                     }
                     //TODO: Implement DeviceSnooper and Parse before uncommenting above code
                     Thread.sleep(5000);
@@ -154,9 +172,7 @@ public class InitialLoadingActivity extends Activity {
                     e.printStackTrace();
                 } finally {
                     //Bundle important information to send over here
-                    Intent i = new Intent(InitialLoadingActivity.this,
-                            MainActivity.class);
-                    startActivity(i);
+
                     finish();
                 }
             }

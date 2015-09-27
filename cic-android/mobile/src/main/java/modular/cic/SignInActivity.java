@@ -300,9 +300,8 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
 
             if (success) {
                 finish();
-                Intent intent = new Intent(SignInActivity.this,MainActivity.class);
+                Intent intent = new Intent(SignInActivity.this,InitialLoadingActivity.class);
                 startActivity(intent);
-
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

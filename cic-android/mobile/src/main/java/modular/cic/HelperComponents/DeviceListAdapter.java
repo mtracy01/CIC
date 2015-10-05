@@ -6,6 +6,7 @@ import android.widget.ExpandableListAdapter;
 
 /**
  * Created by matthew on 9/27/2015.
+ * Purpose: Device list implementation details here
  */
 public class DeviceListAdapter extends ArrayAdapter {
     //TODO: Add variables here

@@ -9,5 +9,6 @@
     <string name="device_title">Device Title</string>
     <string name="device_type">Device Type</string>
     <string name="primary_device">Primary Device?</string>
+    <string name="device_picture_string">Device Picture</string>
 
 </resources>

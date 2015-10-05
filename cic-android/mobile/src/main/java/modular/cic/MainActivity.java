@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import modular.cic.HelperComponents.ParseHelper;
 
 
@@ -19,34 +21,29 @@ public class  MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Logout Menu");
-                builder.setMessage("Logout?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ParseHelper.logout(context);
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-
-            }
-        });
-
+        ButterKnife.bind(this);
 
 
         //TODO: Create progress dialog, create setup menu for first time user
+    }
+
+    @OnClick(R.id.imageButton) void createLogoutDialogt() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Logout Menu");
+        builder.setMessage("Logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ParseHelper.logout(context);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     @Override

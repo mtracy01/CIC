@@ -38,7 +38,7 @@
         </activity>
         <activity
             android:name=".Login.SignInActivity"
-            android:label="@string/title_activity_login"
+            android:label="Device Assistant"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

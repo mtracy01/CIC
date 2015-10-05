@@ -39,4 +39,5 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
     compile 'com.github.manuelpeinado.glassactionbar:glassactionbar:0.3.0'
     compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

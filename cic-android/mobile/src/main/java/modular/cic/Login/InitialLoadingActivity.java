@@ -162,12 +162,14 @@ public class InitialLoadingActivity extends Activity {
                         });
 
                     }
-                    //TODO: Implement DeviceSnooper and Parse before uncommenting above code
-                    Thread.sleep(5000);
-                    Log.i(LOG_TAG, "Second sleep finished");
-                    updateText(textView, "Finishing up...");
-                    //TODO: Set this device as having highest priority currently.  Tell the server to push other devices to turn notifications off
-                    Thread.sleep(9000);
+                    else {
+                        //TODO: Implement DeviceSnooper and Parse before uncommenting above code
+                        Thread.sleep(3000);
+                        Log.i(LOG_TAG, "Second sleep finished");
+                        updateText(textView, "Finishing up...");
+                        //TODO: Set this device as having highest priority currently.  Tell the server to push other devices to turn notifications off
+                        Thread.sleep(1000);
+                    }
 
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error here!!");

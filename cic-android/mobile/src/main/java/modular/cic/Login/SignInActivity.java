@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modular.cic.HelperComponents.App;
-import modular.cic.MainActivity;
+import modular.cic.MainMobileActivity;
 import modular.cic.R;
 
 /**
@@ -63,7 +63,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
             Parse.initialize(this, "mVVIOvXdu2U7GgpRfVsGnVUJF6manarnyTbYaR9R", "xbkQl7TMB7Oe2Y5avaTZH10jj5nY5FTxLZPwAgig");
         }
         if(ParseUser.getCurrentUser()!=null){
-            startActivity(new Intent(SignInActivity.this, MainActivity.class));
+            startActivity(new Intent(SignInActivity.this, MainMobileActivity.class));
         }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();

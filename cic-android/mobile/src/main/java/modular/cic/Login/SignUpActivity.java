@@ -31,7 +31,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-import modular.cic.MainActivity;
+import modular.cic.MainMobileActivity;
 import modular.cic.R;
 
 public class SignUpActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -286,7 +286,7 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
 
             if (success) {
                 finish();
-                Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                Intent intent = new Intent(SignUpActivity.this,MainMobileActivity.class);
                 startActivity(intent);
             } else {
                 mPasswordView.setError("Cannot create new account");

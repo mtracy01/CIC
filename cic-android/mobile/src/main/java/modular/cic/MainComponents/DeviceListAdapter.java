@@ -3,6 +3,7 @@ package modular.cic.MainComponents;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
+
+import modular.cic.HelperComponents.ParseHelper;
 import modular.cic.R;
 
 
@@ -20,16 +26,12 @@ import modular.cic.R;
  */
 public class DeviceListAdapter extends ArrayAdapter<String> {
     private Activity context;
-    private Bitmap[] image;      //Image for device
-    private String[] name;      //Name of device
-    private int[] status;       //Status of device
+    private String[] name;      //Name of devices
 
-    public DeviceListAdapter(Activity context, String[] names, Bitmap[] images, int[] statuss) {
+    public DeviceListAdapter(Activity context, String[] names) {
         super(context, R.layout.devicelistadapter, names);
         this.context = context;
-        this.image = images;
         this.name = names;
-        this.status = statuss;
     }
 
     @Override
@@ -40,12 +42,19 @@ public class DeviceListAdapter extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
         RadioButton bttn = (RadioButton) rowView.findViewById(R.id.bttn);
 
+        //Get device info from parse objects
+        ArrayList<Bitmap>image = ParseHelper.getDeviceImages();
+        ArrayList<Integer> status = ParseHelper.getDeviceStatuses();
         //Set values for row
         textView.setText(name[position]);
-        imageView.setImageBitmap(image[position]);
+        if(image.size()==0){
+            Log.e("DeviceListAdapter","Bug condition");
+            return rowView;
+        }
+        imageView.setImageBitmap(image.get(position));
         bttn.setChecked(true);
 
-        switch (status[position]) {
+        switch (status.get(position)) {
             case 0:
                 //Device offline / unavailable
                 bttn.setTextColor(Color.RED);

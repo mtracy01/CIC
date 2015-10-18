@@ -202,7 +202,7 @@ ADDED from C:\Users\matthew\Projects\CIC\cic-android\mobile\src\main\AndroidMani
 		ADDED from C:\Users\matthew\Projects\CIC\cic-android\mobile\src\main\AndroidManifest.xml:40:13-72
 	android:name
 		ADDED from C:\Users\matthew\Projects\CIC\cic-android\mobile\src\main\AndroidManifest.xml:37:13-57
-activity#modular.cic.MainActivity
+activity#modular.cic.MainMobileActivity
 ADDED from C:\Users\matthew\Projects\CIC\cic-android\mobile\src\main\AndroidManifest.xml:41:9-44:20
 	android:label
 		ADDED from C:\Users\matthew\Projects\CIC\cic-android\mobile\src\main\AndroidManifest.xml:43:13-56

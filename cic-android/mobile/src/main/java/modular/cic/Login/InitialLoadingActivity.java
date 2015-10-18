@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modular.cic.HelperComponents.ParseHelper;
-import modular.cic.MainActivity;
+import modular.cic.MainMobileActivity;
 import modular.cic.R;
 
 
@@ -117,6 +118,7 @@ public class InitialLoadingActivity extends Activity {
                                         device.put("deviceType", deviceType.getSelectedItem());
                                         device.put("deviceName", deviceNameText.getText().toString());
                                         device.put("deviceId", hid);
+                                        device.put("deviceModel", Build.PRODUCT);
                                         if (deviceType.getSelectedItemPosition() == 1)
                                             device.put("notificationPriority", 0);
                                         else
@@ -127,7 +129,7 @@ public class InitialLoadingActivity extends Activity {
                                             ParseUser.getCurrentUser().save();
                                             device.save();
                                             Intent i = new Intent(InitialLoadingActivity.this,
-                                                    MainActivity.class);
+                                                    MainMobileActivity.class);
                                             startActivity(i);
                                         } catch (ParseException e) {
                                             //TODO: Add exception information here
@@ -169,6 +171,7 @@ public class InitialLoadingActivity extends Activity {
                         updateText(textView, "Finishing up...");
                         //TODO: Set this device as having highest priority currently.  Tell the server to push other devices to turn notifications off
                         Thread.sleep(1000);
+                        startActivity(new Intent(InitialLoadingActivity.this,MainMobileActivity.class));
                     }
 
                 } catch (Exception e) {
@@ -177,7 +180,7 @@ public class InitialLoadingActivity extends Activity {
                 } finally {
                     //Bundle important information to send over here
 
-                    finish();
+                    //finish();
                 }
             }
         };

@@ -6,28 +6,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import modular.cic.HelperComponents.App;
 import modular.cic.HelperComponents.ParseHelper;
+import modular.cic.MainComponents.DeviceListAdapter;
 
 
-public class  MainActivity extends Activity{
+public class MainMobileActivity extends Activity{
 
     private final Context context = this;
-    private String LOG_TAG = "MainActivity";
+    private final Activity activity=this;
+    private String LOG_TAG = "MainMobileActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,28 +42,38 @@ public class  MainActivity extends Activity{
 
 
     protected void updateDeviceList(){
-        ListView listView = (ListView)findViewById(R.id.expandableListView);
-        //TODO: Get device information
-
-        ParseQuery query = new ParseQuery("Device");
-        query.findInBackground(new FindCallback() {
+        final ListView listView = (ListView)findViewById(R.id.expandableListView);
+        Runnable updateTask = new Runnable() {
             @Override
-            public void done(List list, ParseException e) {
-                if(list.size()==0)
-                    Log.e(LOG_TAG,"Empty device list!");
-                Iterator iterator = list.iterator();
-                do{
-                    ParseObject device = (ParseObject)iterator.next();
+            public void run() {
+                List queryResults = null;
+                App.devices.clear();
+                ArrayList<String> deviceNames = new ArrayList<>();
+                ParseQuery parseQuery = new ParseQuery("Device");
+                parseQuery.whereContains("ownerId", ParseUser.getCurrentUser().getObjectId());
+                try {
+                    queryResults = parseQuery.find();
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                    e.printStackTrace();
+                }
+                if (queryResults == null) return;
+                for (Object o : queryResults) {
+                    ParseObject device = (ParseObject) o;
+                    App.devices.add(device);
+                    deviceNames.add((String)device.get("deviceName"));
+                }
 
-                }while(iterator.hasNext());
+                //Create adapter and update UI
+                String[] deviceNamesArray = new String[deviceNames.size()];
+                deviceNamesArray=deviceNames.toArray(deviceNamesArray);
+                DeviceListAdapter adapter = new DeviceListAdapter(activity,deviceNamesArray);
+                listView.setAdapter(adapter);
             }
-
-            @Override
-            public void done(Object o, Throwable throwable) {
-
-            }
-        });
+        };
+        updateTask.run();
     }
+
     @OnClick(R.id.imageButton) void createLogoutDialogt() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Logout Menu");

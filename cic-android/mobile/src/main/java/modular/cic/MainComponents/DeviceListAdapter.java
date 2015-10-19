@@ -43,7 +43,7 @@ public class DeviceListAdapter extends ArrayAdapter<String> {
         RadioButton bttn = (RadioButton) rowView.findViewById(R.id.bttn);
 
         //Get device info from parse objects
-        ArrayList<Bitmap>image = ParseHelper.getDeviceImages();
+        ArrayList<Bitmap>image = ParseHelper.getDeviceImages(getContext().getResources());
         ArrayList<Integer> status = ParseHelper.getDeviceStatuses();
         //Set values for row
         textView.setText(name[position]);

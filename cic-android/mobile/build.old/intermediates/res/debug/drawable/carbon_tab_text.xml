@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/carbon_tab_text_selected" android:state_selected="true" />
-    <item android:color="@color/carbon_tab_text_unselected" />
-</selector><!-- From: file:/D:/projekty/android%20studio%20workspace/Carbon/carbon/src/main/res/drawable/carbon_tab_text.xml --><!-- From: file:/C:/Users/matthew/Projects/CIC/cic-android/mobile/build/intermediates/exploded-aar/tk.zielony/carbon/0.8.0/res/drawable/carbon_tab_text.xml -->

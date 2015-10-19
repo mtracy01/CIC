@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import modular.cic.HelperComponents.App;
+import modular.cic.HelperComponents.DialogHelper;
 import modular.cic.HelperComponents.ParseHelper;
 import modular.cic.MainComponents.DeviceListAdapter;
 
@@ -74,33 +75,25 @@ public class MainMobileActivity extends Activity{
         updateTask.run();
     }
 
-    @OnClick(R.id.imageButton) void createLogoutDialogt() {
+    @OnClick(R.id.imageButton) void createLogoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Logout Menu");
-        builder.setMessage("Logout?");
+        builder.setTitle("Logout?");
+        builder.setMessage("Would you like to log out?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ParseHelper.logout(context);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("No", DialogHelper.cancel);
         builder.show();
     }
 
     @Override
     public void onBackPressed(){
-        //Logout the user
-        ParseHelper.logout(this);
+       createLogoutDialog();
     }
     //TODO: Create main menu, create fragments for the following:
-    //          My Devices
-    //          Find pictures for devices
     //          Settings
 
 }

@@ -58,7 +58,6 @@ public class InitialLoadingActivity extends Activity {
                     final String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                     //TODO: Check parse for id
                     ParseQuery query = new ParseQuery("Device");
-                    query.include("deviceOwner");
                     String oid = ParseUser.getCurrentUser().getObjectId();
                     query.whereContains("ownerId", oid);
                     query.whereContains("deviceId", hid);
@@ -165,12 +164,13 @@ public class InitialLoadingActivity extends Activity {
 
                     }
                     else {
-                        //TODO: Implement DeviceSnooper and Parse before uncommenting above code
-                        Thread.sleep(3000);
-                        Log.i(LOG_TAG, "Second sleep finished");
+                        //TODO: Implement Changing device priority
+
                         updateText(textView, "Finishing up...");
+                        ParseObject device = (ParseObject)devices.get(0);
+                        device.add("notificationStatus",2);
+                        device.save();
                         //TODO: Set this device as having highest priority currently.  Tell the server to push other devices to turn notifications off
-                        Thread.sleep(1000);
                         startActivity(new Intent(InitialLoadingActivity.this,MainMobileActivity.class));
                     }
 

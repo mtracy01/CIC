@@ -3,7 +3,6 @@ package modular.cic.HelperComponents;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
 
 import modular.cic.R;
 
@@ -12,17 +11,17 @@ import modular.cic.R;
  * Purpose: Assign image to device based on phone model
  */
 public class ImageSelector {
-    public static Bitmap selectImage(String deviceModel){
+    public static Bitmap selectImage(String deviceModel, Resources resources){
         Bitmap result;
         switch(deviceModel){
-            /*case "Nexus 6":
-
+            case "shamu":
+                result = BitmapFactory.decodeResource(resources, R.drawable.nexus_6_140x196);
                 break;
-            case "Nexus 7":
-
-                break;*/
+            case "razer":
+                result = BitmapFactory.decodeResource(resources, R.drawable.nexus_7_140x196);
+                break;
             default:
-                result = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.nexus_6_140x196);
+                result = BitmapFactory.decodeResource(resources, R.drawable.nexus_6_140x196);
                 break;
         }
         return result;

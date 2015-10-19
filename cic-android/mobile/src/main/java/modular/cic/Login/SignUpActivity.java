@@ -35,12 +35,6 @@ import modular.cic.MainMobileActivity;
 import modular.cic.R;
 
 public class SignUpActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
-
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
   
     /**
      * Keep track of the login task to ensure we can cancel it if requested.

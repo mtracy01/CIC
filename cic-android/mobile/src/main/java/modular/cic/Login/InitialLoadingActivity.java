@@ -62,8 +62,8 @@ public class InitialLoadingActivity extends Activity {
                     query.whereContains("ownerId", oid);
                     query.whereContains("deviceId", hid);
                     List devices = query.find();
-                    Log.i(LOG_TAG,"Devices size: " + devices.size());
-                    if(devices.size()==0){
+                    Log.i(LOG_TAG, "Devices size: " + devices.size());
+                    if (devices.size() == 0) {
                         //Prompt user for if they would like to add this device to their account
                         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Add Device?");
@@ -74,7 +74,7 @@ public class InitialLoadingActivity extends Activity {
                                 //TODO: Store this device into parse
                                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                                View v = getLayoutInflater().inflate(R.layout.add_device,null);  //(context, R.layout.add_device);
+                                View v = getLayoutInflater().inflate(R.layout.add_device, null);  //(context, R.layout.add_device);
                                 builder.setView(v);
 
                                 final EditText deviceNameText = (EditText) v.findViewById(R.id.devNameText);
@@ -102,7 +102,7 @@ public class InitialLoadingActivity extends Activity {
                                         try {
                                             List l = query.find();
                                             Log.i(LOG_TAG, "List size: " + l.size());
-                                            if(l.size()>0)
+                                            if (l.size() > 0)
                                                 deviceCount = (Integer) l.get(0);
 
                                         } catch (ParseException e) {
@@ -112,7 +112,7 @@ public class InitialLoadingActivity extends Activity {
                                         ParseObject device = new ParseObject("Device");
                                         String ownerId = ParseUser.getCurrentUser().getObjectId();
                                         String deviceId = hid;
-                                        Log.i(LOG_TAG,"Owner Id: " + ownerId + "DeviceId: " + deviceId);
+                                        Log.i(LOG_TAG, "Owner Id: " + ownerId + "DeviceId: " + deviceId);
                                         device.put("ownerId", ParseUser.getCurrentUser().getObjectId());
                                         device.put("deviceType", deviceType.getSelectedItem());
                                         device.put("deviceName", deviceNameText.getText().toString());
@@ -127,11 +127,11 @@ public class InitialLoadingActivity extends Activity {
                                         try {
                                             ParseUser.getCurrentUser().save();
                                             device.save();
-                                            Intent i = new Intent(InitialLoadingActivity.this,
-                                                    MainMobileActivity.class);
-                                            startActivity(i);
-                                        } catch (ParseException e) {
-                                            //TODO: Add exception information here
+                                            Thread.sleep(1000);
+                                            startActivity(new Intent(InitialLoadingActivity.this, MainMobileActivity.class));
+                                        } catch (Exception e) {
+                                            Log.e(LOG_TAG, e.getMessage());
+                                            e.printStackTrace();
                                         }
                                     }
                                 });
@@ -162,16 +162,16 @@ public class InitialLoadingActivity extends Activity {
                             }
                         });
 
-                    }
-                    else {
+                    } else {
                         //TODO: Implement Changing device priority
 
                         updateText(textView, "Finishing up...");
-                        ParseObject device = (ParseObject)devices.get(0);
-                        device.add("notificationStatus",2);
+                        ParseObject device = (ParseObject) devices.get(0);
+                        device.add("notificationStatus", 2);
+                        device.add("notificationPriority", 0);
                         device.save();
-                        //TODO: Set this device as having highest priority currently.  Tell the server to push other devices to turn notifications off
-                        startActivity(new Intent(InitialLoadingActivity.this,MainMobileActivity.class));
+                        //TODO: Server side: Tell the server to push other devices to turn notifications off
+                        startActivity(new Intent(InitialLoadingActivity.this, MainMobileActivity.class));
                     }
 
                 } catch (Exception e) {

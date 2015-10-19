@@ -11,7 +11,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -57,12 +56,12 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
         // Set up the login form.
-        if(!App.first) {
+        if (!App.first) {
             App.first = true;
             Parse.enableLocalDatastore(this);
             Parse.initialize(this, "mVVIOvXdu2U7GgpRfVsGnVUJF6manarnyTbYaR9R", "xbkQl7TMB7Oe2Y5avaTZH10jj5nY5FTxLZPwAgig");
         }
-        if(ParseUser.getCurrentUser()!=null){
+        if (ParseUser.getCurrentUser() != null) {
             startActivity(new Intent(SignInActivity.this, MainMobileActivity.class));
         }
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -91,7 +90,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
         mEmailRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
 
             }
@@ -287,11 +286,11 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
                 }
             });*/
             try {
-                ParseUser.logIn(mEmail,mPassword);
-                ret[0]=true;
+                ParseUser.logIn(mEmail, mPassword);
+                ret[0] = true;
             } catch (ParseException e) {
                 e.printStackTrace();
-                ret[0]=false;
+                ret[0] = false;
             }
             return ret[0];
         }
@@ -303,7 +302,7 @@ public class SignInActivity extends Activity implements LoaderCallbacks<Cursor> 
 
             if (success) {
                 finish();
-                Intent intent = new Intent(SignInActivity.this,InitialLoadingActivity.class);
+                Intent intent = new Intent(SignInActivity.this, InitialLoadingActivity.class);
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

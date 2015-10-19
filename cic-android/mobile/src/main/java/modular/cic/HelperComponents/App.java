@@ -12,6 +12,7 @@ public class App {
     public static void kill() {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
     public static boolean first = false;
-    public static ArrayList<ParseObject> devices=new ArrayList<>();
+    public static ArrayList<ParseObject> devices = new ArrayList<>();
 }

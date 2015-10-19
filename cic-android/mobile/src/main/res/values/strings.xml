@@ -10,5 +10,11 @@
     <string name="device_type">Device Type</string>
     <string name="primary_device">Primary Device?</string>
     <string name="device_picture_string">Device Picture</string>
+    <string name="main_menu">Main Menu</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_device_information">DeviceInformationActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

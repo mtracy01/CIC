@@ -11,13 +11,13 @@ import modular.cic.R;
  * Purpose: Assign image to device based on phone model
  */
 public class ImageSelector {
-    public static Bitmap selectImage(String deviceModel, Resources resources){
+    public static Bitmap selectImage(String deviceModel, Resources resources) {
         Bitmap result;
-        switch(deviceModel){
+        switch (deviceModel) {
             case "shamu":
                 result = BitmapFactory.decodeResource(resources, R.drawable.nexus_6_140x196);
                 break;
-            case "razer":
+            case "razor":
                 result = BitmapFactory.decodeResource(resources, R.drawable.nexus_7_140x196);
                 break;
             default:

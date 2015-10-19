@@ -30,12 +30,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".MainMobileActivity"
-            android:label="@string/title_activity_main" >
-        </activity>
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".Login.InitialLoadingActivity"
-            android:label="@string/title_activity_initial_loading" >
-        </activity>
+            android:label="@string/title_activity_initial_loading" />
         <activity
             android:name=".Login.SignInActivity"
             android:label="Device Assistant"
@@ -48,7 +46,11 @@
         </activity>
         <activity
             android:name=".Login.SignUpActivity"
-            android:label="@string/title_activity_sign_up" >
+            android:label="@string/title_activity_sign_up" />
+        <activity
+            android:name=".DeviceInformationActivity"
+            android:label="@string/title_activity_device_information"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

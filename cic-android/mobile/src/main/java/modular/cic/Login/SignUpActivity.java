@@ -12,8 +12,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -35,7 +35,7 @@ import modular.cic.MainMobileActivity;
 import modular.cic.R;
 
 public class SignUpActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
-  
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -264,11 +264,11 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
             newuser.setPassword(mPassword);
             try {
                 newuser.signUp();
-                ret[0]=true;
+                ret[0] = true;
             } catch (ParseException e) {
-                Log.e("SignUp",e.getMessage());
+                Log.e("SignUp", e.getMessage());
                 e.printStackTrace();
-                ret[0]=false;
+                ret[0] = false;
             }
             return ret[0];
         }
@@ -280,7 +280,7 @@ public class SignUpActivity extends Activity implements LoaderManager.LoaderCall
 
             if (success) {
                 finish();
-                Intent intent = new Intent(SignUpActivity.this,MainMobileActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, MainMobileActivity.class);
                 startActivity(intent);
             } else {
                 mPasswordView.setError("Cannot create new account");

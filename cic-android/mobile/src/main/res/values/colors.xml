@@ -56,4 +56,9 @@
     <color name="holo_green_dark">#669900</color>
     <color name="holo_purple_dark">#9933cc</color>
     <color name="holo_red_dark">#cc0000</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">#303f9e</color>
 </resources>

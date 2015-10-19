@@ -1,8 +1,10 @@
 package modular.cic.MainComponents;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.parse.ParseObject;
-
 import java.util.ArrayList;
 
+
+import modular.cic.DeviceInformationActivity;
 import modular.cic.HelperComponents.ParseHelper;
 import modular.cic.R;
 
@@ -36,19 +38,19 @@ public class DeviceListAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();//TODO: Finish this
+        LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.devicelistadapter, null, true);
         TextView textView = (TextView) rowView.findViewById(R.id.txt);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
         RadioButton bttn = (RadioButton) rowView.findViewById(R.id.bttn);
-
+        final int position2=position;
         //Get device info from parse objects
-        ArrayList<Bitmap>image = ParseHelper.getDeviceImages(getContext().getResources());
+        ArrayList<Bitmap> image = ParseHelper.getDeviceImages(getContext().getResources());
         ArrayList<Integer> status = ParseHelper.getDeviceStatuses();
         //Set values for row
         textView.setText(name[position]);
-        if(image.size()==0){
-            Log.e("DeviceListAdapter","Bug condition");
+        if (image.size() == 0) {
+            Log.e("DeviceListAdapter", "Bug condition");
             return rowView;
         }
         imageView.setImageBitmap(image.get(position));
@@ -57,21 +59,29 @@ public class DeviceListAdapter extends ArrayAdapter<String> {
         switch (status.get(position)) {
             case 0:
                 //Device offline / unavailable
-                bttn.setTextColor(Color.RED);
+                bttn.setBackgroundColor(Color.RED);
                 break;
             case 1:
                 //Device sleeping
-                bttn.setTextColor(Color.YELLOW);
+                bttn.setBackgroundColor(Color.YELLOW);
                 break;
             case 2:
                 //Device online / is primary receiver
-                bttn.setTextColor(Color.GREEN);
+                bttn.setBackgroundColor(Color.GREEN);
                 break;
             default:
                 //Status unknown
-                bttn.setTextColor(Color.BLACK);
+                bttn.setBackgroundColor(Color.BLACK);
                 break;
         }
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, DeviceInformationActivity.class);
+                i.putExtra("devicePosition",position2);
+                context.startActivity(i);
+            }
+        });
         return rowView;
     }
 }

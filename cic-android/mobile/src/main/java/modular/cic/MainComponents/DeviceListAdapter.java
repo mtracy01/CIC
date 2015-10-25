@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 
 import modular.cic.DeviceInformationActivity;
 import modular.cic.HelperComponents.ParseHelper;
@@ -43,7 +41,7 @@ public class DeviceListAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) rowView.findViewById(R.id.txt);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
         RadioButton bttn = (RadioButton) rowView.findViewById(R.id.bttn);
-        final int position2=position;
+        final int position2 = position;
         //Get device info from parse objects
         ArrayList<Bitmap> image = ParseHelper.getDeviceImages(getContext().getResources());
         ArrayList<Integer> status = ParseHelper.getDeviceStatuses();
@@ -78,7 +76,7 @@ public class DeviceListAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, DeviceInformationActivity.class);
-                i.putExtra("devicePosition",position2);
+                i.putExtra("devicePosition", position2);
                 context.startActivity(i);
             }
         });

@@ -35,6 +35,7 @@ public class MainMobileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //TODO: Find device ID, run a thread to refresh the status of devices before showing UI
         updateDeviceList();
         //TODO: Create progress dialog, create setup menu for first time user
     }
@@ -81,8 +82,13 @@ public class MainMobileActivity extends Activity {
                 //Create adapter and update UI
                 String[] deviceNamesArray = new String[deviceNames.size()];
                 deviceNamesArray = deviceNames.toArray(deviceNamesArray);
-                DeviceListAdapter adapter = new DeviceListAdapter(activity, deviceNamesArray);
-                listView.setAdapter(adapter);
+                final DeviceListAdapter adapter = new DeviceListAdapter(activity, deviceNamesArray);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setAdapter(adapter);
+                    }
+                });
             }
         };
         updateTask.run();

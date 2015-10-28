@@ -167,8 +167,8 @@ public class InitialLoadingActivity extends Activity {
 
                         updateText(textView, "Finishing up...");
                         ParseObject device = (ParseObject) devices.get(0);
-                        device.add("notificationStatus", 2);
-                        device.add("notificationPriority", 0);
+                        device.put("notificationStatus", 2);
+                        device.put("notificationPriority", 0);
                         device.save();
                         //TODO: Server side: Tell the server to push other devices to turn notifications off
                         startActivity(new Intent(InitialLoadingActivity.this, MainMobileActivity.class));

@@ -58,4 +58,31 @@ public class ParseHelper {
             results.add(parseObject.getInt("notificationStatus"));
         return results;
     }
+
+    public static void setDeviceActive(Context context){
+        final String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        ParseQuery query = new ParseQuery("Device");
+        String oid = ParseUser.getCurrentUser().getObjectId();
+        query.whereContains("ownerId", oid);
+        query.whereContains("deviceId", hid);
+        query.findInBackground(new FindCallback() {
+            @Override
+            public void done(List list, ParseException e) {
+                ParseObject device = (ParseObject) list.get(0);
+                device.put("notificationStatus", 2);
+                device.put("notificationPriority", 0);
+                try {
+                    device.save();
+                } catch(Exception er){
+                    er.printStackTrace();
+                }
+            }
+
+            @Override
+            public void done(Object o, Throwable throwable) {
+
+            }
+        });
+    }
 }

@@ -35,7 +35,7 @@ public class MainMobileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //TODO: Find device ID, run a thread to refresh the status of devices before showing UI
+        ParseHelper.setDeviceActive(this);
         updateDeviceList();
         //TODO: Create progress dialog, create setup menu for first time user
     }

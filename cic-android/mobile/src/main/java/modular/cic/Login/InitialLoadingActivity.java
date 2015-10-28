@@ -53,10 +53,7 @@ public class InitialLoadingActivity extends Activity {
                     //TODO: Query for the userid, it does not exist, we need to go to the new user page, otheriwise, get other info
                     updateText(textView, "Gathering Profile information...");
                     Log.i(LOG_TAG, "Set text second time");
-                    //TODO: Query the hardware id. If hardware id is new, if it is, then we should prompt user if they want to add it (or not?)
-                    //Device currDevice = DeviceSnooper.gatherDeviceInfo(context);
                     final String hid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-                    //TODO: Check parse for id
                     ParseQuery query = new ParseQuery("Device");
                     String oid = ParseUser.getCurrentUser().getObjectId();
                     query.whereContains("ownerId", oid);
@@ -106,9 +103,8 @@ public class InitialLoadingActivity extends Activity {
                                                 deviceCount = (Integer) l.get(0);
 
                                         } catch (ParseException e) {
-                                            //TODO: Print error
+                                            e.printStackTrace();
                                         }
-                                        //TODO: Add device to Parse under this owner
                                         ParseObject device = new ParseObject("Device");
                                         String ownerId = ParseUser.getCurrentUser().getObjectId();
                                         String deviceId = hid;
@@ -138,7 +134,7 @@ public class InitialLoadingActivity extends Activity {
                                 builder.setNegativeButton("Don't Add", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //TODO: Do nothing
+
                                     }
                                 });
                                 runOnUiThread(new Runnable() {
